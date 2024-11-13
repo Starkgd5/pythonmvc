@@ -1,11 +1,14 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
+from src.views.http_types.http_request import HttpRequest
+
+from src.views.person_register_view import PersonRegisterView
 
 person_routes_bp = Blueprint("person_routes", __name__)
 
 
-@person_routes_bp.route("/persons", methods=["GET"])
+@person_routes_bp.route("/persons", methods=["POST"])
 def create_person():
-    person = [
-        {"id": 1, "name": "Jonas Martiniano", "age": 34, "email": "jonas@gmail.com"}
-    ]
-    return jsonify(person), 201
+    http_request = HttpRequest(body=request.json)
+    http_response = PersonRegisterView().handle(http_request)
+
+    return jsonify(http_response.body), http_response.status_code
