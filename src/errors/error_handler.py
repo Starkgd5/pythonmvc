@@ -1,5 +1,5 @@
 from src.views.http_types.http_response import HttpResponse
-from src.errors.types.http_bad_resquest import HttpBadRequestError
+from src.errors.types.http_bad_request import HttpBadRequestError
 
 def handler_errors(error: Exception) -> HttpResponse:
     if isinstance(error, HttpBadRequestError):
